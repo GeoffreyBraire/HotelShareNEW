@@ -23,7 +23,7 @@ public class Country extends AuditModel implements Serializable {
     @Column(name = "ID_COUNTRY")
     private long id;
 
-    @OneToMany(mappedBy = "country")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "country", cascade = CascadeType.PERSIST)
     private Set<Address> addresses;
 
     @Column(name = "NAME_COUNTRY")

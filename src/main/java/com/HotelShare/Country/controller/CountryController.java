@@ -35,6 +35,7 @@ public class CountryController {
     @Transactional
     @PostMapping("/countries")
     public Country createCountry(@Valid @RequestBody Country country) {
+        country.getAddresses().forEach(address -> address.setCountry(country));
         return countryRepository.save(country);
     }
 

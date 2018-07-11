@@ -32,7 +32,7 @@ public class Address extends AuditModel implements Serializable {
     @JoinColumn(name = "ID_HOTEL", nullable = false)
     private Hotel hotel;*/
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ID_COUNTRY", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Country country;
