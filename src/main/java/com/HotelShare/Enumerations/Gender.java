@@ -1,4 +1,4 @@
-package com.HotelShare.Enumerations;
+package com.HotelShare.enumerations;
 
 public enum Gender {
     MALE,

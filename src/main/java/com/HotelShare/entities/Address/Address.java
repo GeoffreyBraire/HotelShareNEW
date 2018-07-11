@@ -1,11 +1,8 @@
-package com.HotelShare.Address.entity;
+package com.HotelShare.entities.Address;
 
-import com.HotelShare.AuditModel;
-import com.HotelShare.Country.entity.Country;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.HotelShare.entities.AuditModel;
+import com.HotelShare.entities.Country.Country;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -14,8 +11,11 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "ADDRESS")
+@Builder
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address extends AuditModel implements Serializable {

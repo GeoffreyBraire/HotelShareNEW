@@ -1,6 +1,6 @@
-package com.HotelShare.Country.repository;
+package com.HotelShare.repositories.Country;
 
-import com.HotelShare.Country.entity.Country;
+import com.HotelShare.Country;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

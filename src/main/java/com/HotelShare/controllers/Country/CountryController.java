@@ -1,8 +1,9 @@
-package com.HotelShare.Country.controller;
+package com.HotelShare.controllers.Country;
 
-import com.HotelShare.Country.entity.Country;
-import com.HotelShare.Country.repository.CountryRepository;
 import com.HotelShare.Exceptions.NotFoundException;
+import com.HotelShare.entities.Country.Country;
+import com.HotelShare.exceptions.NotFoundException;
+import com.HotelShare.repositories.Country.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

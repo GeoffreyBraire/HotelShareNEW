@@ -1,9 +1,10 @@
-package com.HotelShare.Address.controller;
+package com.HotelShare;
 
-import com.HotelShare.Address.entity.Address;
-import com.HotelShare.Address.repository.AddressRepository;
-import com.HotelShare.Country.repository.CountryRepository;
 import com.HotelShare.Exceptions.NotFoundException;
+import com.HotelShare.entities.Address.Address;
+import com.HotelShare.exceptions.NotFoundException;
+import com.HotelShare.repositories.Address.AddressRepository;
+import com.HotelShare.repositories.Country.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
