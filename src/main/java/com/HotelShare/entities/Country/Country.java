@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "COUNTRY")
+@Table(name = "COUNTRY", uniqueConstraints= @UniqueConstraint(columnNames={"NAME_COUNTRY"}))
 @Builder
 @Getter
 @Setter
