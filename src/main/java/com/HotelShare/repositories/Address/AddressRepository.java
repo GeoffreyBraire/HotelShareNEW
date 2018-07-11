@@ -1,6 +1,6 @@
 package com.HotelShare.repositories.Address;
 
-import com.HotelShare.Address;
+import com.HotelShare.entities.Address.Address;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

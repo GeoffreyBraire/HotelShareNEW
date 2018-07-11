@@ -1,6 +1,5 @@
-package com.HotelShare;
+package com.HotelShare.controllers.Address;
 
-import com.HotelShare.Exceptions.NotFoundException;
 import com.HotelShare.entities.Address.Address;
 import com.HotelShare.exceptions.NotFoundException;
 import com.HotelShare.repositories.Address.AddressRepository;
