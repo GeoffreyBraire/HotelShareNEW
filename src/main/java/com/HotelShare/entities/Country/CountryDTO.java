@@ -15,6 +15,5 @@ import java.util.Set;
 @AllArgsConstructor
 public class CountryDTO {
     private Long id;
-    private Set<AddressDTO> addresses;
     @NotNull private String nameCountry;
 }

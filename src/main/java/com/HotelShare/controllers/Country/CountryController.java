@@ -1,6 +1,7 @@
 package com.HotelShare.controllers.Country;
 
 import com.HotelShare.entities.Country.Country;
+import com.HotelShare.entities.Country.CountryAdapter;
 import com.HotelShare.exceptions.NotFoundException;
 import com.HotelShare.repositories.Country.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,7 @@ public class CountryController {
 
     @Transactional
     @GetMapping("/countries")
-    public Page<Country> getAllCountries(Pageable pageable) {
-        return countryRepository.findAll(pageable);
-    }
+    public Page<Country> getAllCountries(Pageable pageable) { return countryRepository.findAll(pageable); }
 
     @Transactional
     @GetMapping("/countries/{countryId}")
