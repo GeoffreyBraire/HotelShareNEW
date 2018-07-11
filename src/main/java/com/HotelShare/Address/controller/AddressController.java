@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Optional;
@@ -22,13 +23,14 @@ public class AddressController {
     @Autowired
     private CountryRepository countryRepository;
 
+    @Transactional
     @GetMapping("/countries/{countryId}/addresses")
     public Page<Address> getAllAddressessByCountryId(@PathVariable(value = "countryId") Long countryId,
                                                      Pageable pageable) {
         return addressRepository.findByCountryId(countryId, pageable);
     }
 
-
+    @Transactional
     @PostMapping("/countries/{countryId}/addresses")
     public Address createAddress(@PathVariable (value = "countryId") Long countryId,
                                  @Valid @RequestBody Address address) {
@@ -36,8 +38,9 @@ public class AddressController {
             address.setCountry(country);
             return addressRepository.save(address);
         }).orElseThrow(() -> new NotFoundException("CountryId " + countryId + " not found"));
-}
+    }
 
+    @Transactional
     @PutMapping("/countries/{countryId}/addresses/{addressId}")
     public Address updateAddress(@PathVariable (value = "countryId") Long countryId,
                                  @PathVariable (value = "addressId") Long addressId,
@@ -57,6 +60,7 @@ public class AddressController {
         }).orElseThrow(() -> new NotFoundException("AddressId " + addressId + "not found"));
     }
 
+    @Transactional
     @DeleteMapping("/countries/{countryId}/addresses/{addressId}")
     public ResponseEntity<?> deleteAddress(@PathVariable (value = "countryId") Long countryId,
                                            @PathVariable (value = "addressId") Long addressId) {
