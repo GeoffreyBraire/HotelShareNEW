@@ -21,12 +21,6 @@ import java.util.Date;
 public class CountryDTO implements Serializable {
     private Long id;
     @NotNull private String nameCountry;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date createdDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @LastModifiedDate
-    private Date updatedDate;
+    @Temporal(TemporalType.TIMESTAMP) @CreatedDate private Date createdDate;
+    @Temporal(TemporalType.TIMESTAMP) @LastModifiedDate private Date updatedDate;
 }

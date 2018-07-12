@@ -1,9 +1,12 @@
 package com.HotelShare.controllers.Country;
 
+import com.HotelShare.entities.Address.AddressAdapter;
+import com.HotelShare.entities.Address.AddressDTO;
 import com.HotelShare.entities.Country.Country;
 import com.HotelShare.entities.Country.CountryAdapter;
 import com.HotelShare.entities.Country.CountryDTO;
 import com.HotelShare.exceptions.NotFoundException;
+import com.HotelShare.repositories.Address.AddressRepository;
 import com.HotelShare.repositories.Country.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,10 +28,20 @@ public class CountryController {
     @Autowired
     CountryRepository countryRepository;
 
+    @Autowired
+    AddressRepository addressRepository;
+
     @Transactional
     @GetMapping("/countries")
-    public List<CountryDTO> getAllCountries(Pageable pageable) {
-        return countryRepository.findAll(pageable).stream().map(CountryAdapter::toCountryDTO).collect(toList());
+    public Page<CountryDTO> getAllCountries(Pageable pageable) {
+        return countryRepository.findAll(pageable).map(CountryAdapter::toCountryDTO);
+    }
+
+    @Transactional
+    @GetMapping("/countries/{countryId}/addresses")
+    public Page<AddressDTO> getAllAddressessByCountryId(@PathVariable(value = "countryId") Long countryId,
+                                                        Pageable pageable) {
+        return addressRepository.findByCountryId(countryId, pageable).map(AddressAdapter::toAddressDTO);
     }
 
     @Transactional

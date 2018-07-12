@@ -1,6 +1,10 @@
 package com.HotelShare.controllers.Address;
 
 import com.HotelShare.entities.Address.Address;
+import com.HotelShare.entities.Address.AddressAdapter;
+import com.HotelShare.entities.Address.AddressDTO;
+import com.HotelShare.entities.Country.CountryAdapter;
+import com.HotelShare.entities.Country.CountryDTO;
 import com.HotelShare.exceptions.NotFoundException;
 import com.HotelShare.repositories.Address.AddressRepository;
 import com.HotelShare.repositories.Country.CountryRepository;
@@ -11,6 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/api")
@@ -23,50 +30,33 @@ public class AddressController {
     private CountryRepository countryRepository;
 
     @Transactional
-    @GetMapping("/countries/{countryId}/addresses")
-    public Page<Address> getAllAddressessByCountryId(@PathVariable(value = "countryId") Long countryId,
-                                                     Pageable pageable) {
-        return addressRepository.findByCountryId(countryId, pageable);
+    @GetMapping("/addresses")
+    public Page<AddressDTO> getAllAddressess(Pageable pageable) {
+        return addressRepository.findAll(pageable).map(AddressAdapter::toAddressDTO);
     }
 
     @Transactional
-    @PostMapping("/countries/{countryId}/addresses")
-    public Address createAddress(@PathVariable (value = "countryId") Long countryId,
-                                 @Valid @RequestBody Address address) {
-        return countryRepository.findById(countryId).map(country -> {
-            address.setCountry(country);
-            return addressRepository.save(address);
-        }).orElseThrow(() -> new NotFoundException("CountryId " + countryId + " not found"));
+    @PostMapping("/addresses")
+    public AddressDTO createAddress(@Valid @RequestBody AddressDTO addressDTO) {
+        return AddressAdapter.toAddressDTO(addressRepository.save(AddressAdapter.toAddress(addressDTO)));
     }
 
     @Transactional
-    @PutMapping("/countries/{countryId}/addresses/{addressId}")
-    public Address updateAddress(@PathVariable (value = "countryId") Long countryId,
-                                 @PathVariable (value = "addressId") Long addressId,
-                                 @Valid @RequestBody Address addressRequest) {
-        if(!countryRepository.existsById(countryId)) {
-            throw new NotFoundException("CountryId " + countryId + " not found");
-        }
-
+    @PutMapping("/addresses/{addressId}")
+    public AddressDTO updateAddress(@PathVariable (value = "addressId") Long addressId, @Valid @RequestBody AddressDTO addressDTORequest) {
         return addressRepository.findById(addressId).map(address -> {
-            address.setCountry(addressRequest.getCountry());
-            address.setCity(addressRequest.getCity());
-            address.setPostalCode(addressRequest.getPostalCode());
-            address.setStreetName(addressRequest.getStreetName());
+            address.setCountry(CountryAdapter.toCountry(addressDTORequest.getCountryDTO()));
+            address.setCity(addressDTORequest.getCity());
+            address.setPostalCode(addressDTORequest.getPostalCode());
+            address.setStreetName(addressDTORequest.getStreetName());
             address.setStreetNumber(address.getStreetNumber());
-
-            return addressRepository.save(address);
+            return AddressAdapter.toAddressDTO(addressRepository.save(address));
         }).orElseThrow(() -> new NotFoundException("AddressId " + addressId + "not found"));
     }
 
     @Transactional
-    @DeleteMapping("/countries/{countryId}/addresses/{addressId}")
-    public ResponseEntity<?> deleteAddress(@PathVariable (value = "countryId") Long countryId,
-                                           @PathVariable (value = "addressId") Long addressId) {
-        if(!countryRepository.existsById(countryId)) {
-            throw new NotFoundException("CountryId " + countryId + " not found");
-        }
-
+    @DeleteMapping("/addresses/{addressId}")
+    public ResponseEntity<?> deleteAddress(@PathVariable (value = "addressId") Long addressId) {
         return addressRepository.findById(addressId).map(address -> {
             addressRepository.delete(address);
             return ResponseEntity.ok().build();
