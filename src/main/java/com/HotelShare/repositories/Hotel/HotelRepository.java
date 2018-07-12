@@ -1,6 +1,6 @@
-package com.esgi.annualproject.HotelShareApplication.repositories;
+package com.HotelShare.repositories.Hotel;
 
-import com.esgi.annualproject.HotelShareApplication.entities.Hotel;
+import com.HotelShare.entities.Hotel.Hotel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface HotelRepository extends JpaRepository<Hotel, Long> {

@@ -32,10 +32,10 @@ public class Hotel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private HotelType hotelType;*/
 
-    @OneToOne(fetch = FetchType.LAZY,
+    /*@OneToOne(fetch = FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "hotel")
-    private Address address;
+    private Address address;*/
 
     /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER", nullable = false)

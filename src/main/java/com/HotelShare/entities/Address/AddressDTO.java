@@ -20,7 +20,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class AddressDTO {
     private long id;
-    private HotelDTO hotelDTO;
     private CountryDTO countryDTO;
     private String postalCode;
     private String city;
