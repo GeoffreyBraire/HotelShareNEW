@@ -49,6 +49,7 @@ public class CountryController {
     public CountryDTO getCountryById(@PathVariable Long countryId) {
         return CountryAdapter.toCountryDTO(countryRepository.getOne(countryId));
     }
+
     @Transactional
     @PostMapping("/countries")
     public CountryDTO createCountry(@Valid @RequestBody CountryDTO countryDTO) {

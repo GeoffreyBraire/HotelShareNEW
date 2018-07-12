@@ -36,6 +36,12 @@ public class AddressController {
     }
 
     @Transactional
+    @GetMapping("/addresses/{addressId}")
+    public AddressDTO getAddressById(@PathVariable Long addressId) {
+        return AddressAdapter.toAddressDTO(addressRepository.getOne(addressId));
+    }
+
+    @Transactional
     @PostMapping("/addresses")
     public AddressDTO createAddress(@Valid @RequestBody AddressDTO addressDTO) {
         return AddressAdapter.toAddressDTO(addressRepository.save(AddressAdapter.toAddress(addressDTO)));
@@ -43,12 +49,12 @@ public class AddressController {
 
     @Transactional
     @PutMapping("/addresses/{addressId}")
-    public AddressDTO updateAddress(@PathVariable (value = "addressId") Long addressId, @Valid @RequestBody AddressDTO addressDTORequest) {
+    public AddressDTO updateAddress(@PathVariable (value = "addressId") Long addressId, @Valid @RequestBody Address addressRequest) {
         return addressRepository.findById(addressId).map(address -> {
-            address.setCountry(CountryAdapter.toCountry(addressDTORequest.getCountryDTO()));
-            address.setCity(addressDTORequest.getCity());
-            address.setPostalCode(addressDTORequest.getPostalCode());
-            address.setStreetName(addressDTORequest.getStreetName());
+            address.setCountry(addressRequest.getCountry());
+            address.setCity(addressRequest.getCity());
+            address.setPostalCode(addressRequest.getPostalCode());
+            address.setStreetName(addressRequest.getStreetName());
             address.setStreetNumber(address.getStreetNumber());
             return AddressAdapter.toAddressDTO(addressRepository.save(address));
         }).orElseThrow(() -> new NotFoundException("AddressId " + addressId + "not found"));
