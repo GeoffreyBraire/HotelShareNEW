@@ -1,11 +1,15 @@
 package com.HotelShare.entities.Country;
 
-import com.HotelShare.entities.Address.AddressDTO;
-import com.HotelShare.entities.AuditModel;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.Date;
 
 @Builder
 @Getter
@@ -14,7 +18,15 @@ import java.util.Set;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class CountryDTO extends AuditModel {
+public class CountryDTO implements Serializable {
     private Long id;
     @NotNull private String nameCountry;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    private Date createdDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    private Date updatedDate;
 }

@@ -2,6 +2,13 @@ package com.HotelShare.entities.Address;
 
 import com.HotelShare.entities.Country.CountryDTO;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 
 @Builder
 @Getter
@@ -17,4 +24,6 @@ public class AddressDTO {
     private String city;
     private String streetName;
     private String streetNumber;
+    @Temporal(TemporalType.TIMESTAMP) @CreatedDate private Date createdDate;
+    @Temporal(TemporalType.TIMESTAMP) @LastModifiedDate private Date updatedDate;
 }

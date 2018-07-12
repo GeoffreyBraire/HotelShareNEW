@@ -9,6 +9,8 @@ public class CountryAdapter {
         return country != null ? CountryDTO.builder()
                 .id(country.getId())
                 .nameCountry(country.getNameCountry())
+                .createdDate(country.getCreatedDate())
+                .updatedDate(country.getUpdatedDate())
                 .build() : null;
 
     }
@@ -17,6 +19,8 @@ public class CountryAdapter {
         return countryDTO != null ? Country.builder()
                 .id(countryDTO.getId())
                 .nameCountry(countryDTO.getNameCountry())
+                .createdDate(countryDTO.getCreatedDate())
+                .updatedDate(countryDTO.getUpdatedDate())
                 .build() : null;
     }
 }

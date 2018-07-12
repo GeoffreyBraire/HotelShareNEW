@@ -2,12 +2,14 @@ package com.HotelShare.entities.Country;
 
 
 import com.HotelShare.entities.Address.Address;
-import com.HotelShare.entities.AuditModel;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -19,7 +21,7 @@ import java.util.Set;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Country extends AuditModel implements Serializable {
+public class Country implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID_COUNTRY")
@@ -31,4 +33,14 @@ public class Country extends AuditModel implements Serializable {
     @NotNull
     @Column(name = "NAME_COUNTRY")
     private String nameCountry;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATED_DATE", nullable = false, updatable = false)
+    @CreatedDate
+    private Date createdDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "UPDATED_DATE", nullable = false)
+    @LastModifiedDate
+    private Date updatedDate;
 }

@@ -1,13 +1,15 @@
 package com.HotelShare.entities.Address;
 
-import com.HotelShare.entities.AuditModel;
 import com.HotelShare.entities.Country.Country;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "ADDRESS")
@@ -18,7 +20,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address extends AuditModel implements Serializable {
+public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_ADDRESS")
@@ -48,4 +50,14 @@ public class Address extends AuditModel implements Serializable {
 
     @Column(name = "STREET_NUMBER")
     private String streetNumber;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATED_DATE", nullable = false, updatable = false)
+    @CreatedDate
+    private Date createdDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "UPDATED_DATE", nullable = false)
+    @LastModifiedDate
+    private Date updatedDate;
 }
