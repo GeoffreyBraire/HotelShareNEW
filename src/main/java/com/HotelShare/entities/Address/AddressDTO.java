@@ -19,12 +19,12 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddressDTO {
-    private long id;
+    private Long id;
     private CountryDTO countryDTO;
     private String postalCode;
     private String city;
     private String streetName;
     private String streetNumber;
-    @Temporal(TemporalType.TIMESTAMP) @CreatedDate private Date createdDate;
-    @Temporal(TemporalType.TIMESTAMP) @LastModifiedDate private Date updatedDate;
+    private Date createdDate;
+    private Date updatedDate;
 }

@@ -25,7 +25,7 @@ public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID_ADDRESS")
-    private long id;
+    private Long id;
 
     /*@OneToOne()
     @JoinColumn(name = "ID_PROFILE", nullable = false)
