@@ -31,9 +31,9 @@ public class Address implements Serializable {
     @JoinColumn(name = "ID_PROFILE", nullable = false)
     private UserProfile userProfile;*/
 
-    /*@OneToOne()
+    @OneToOne()
     @JoinColumn(name = "ID_HOTEL", nullable = false)
-    private Hotel hotel;*/
+    private Long idHotel;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "ID_COUNTRY", nullable = false)

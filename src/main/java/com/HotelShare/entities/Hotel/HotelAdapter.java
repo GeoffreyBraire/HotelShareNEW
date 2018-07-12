@@ -1,9 +1,12 @@
 package com.HotelShare.entities.Hotel;
 
+import com.HotelShare.entities.Address.AddressAdapter;
+
 public class HotelAdapter {
     public static HotelDTO toHotelDTO(Hotel hotel) {
         return hotel != null ? HotelDTO.builder()
                 .id(hotel.getId())
+                .addressDTO(AddressAdapter.toAddressDTO(hotel.getAddress()))
                 .nameHotel(hotel.getNameHotel())
                 .numberRooms(hotel.getNumberRooms())
                 .numberStars(hotel.getNumberStars())
@@ -28,6 +31,7 @@ public class HotelAdapter {
     public static Hotel toHotel(HotelDTO hotelDTO) {
         return hotelDTO != null ? Hotel.builder()
                 .id(hotelDTO.getId())
+                .address(AddressAdapter.toAddress(hotelDTO.getAddressDTO()))
                 .nameHotel(hotelDTO.getNameHotel())
                 .numberRooms(hotelDTO.getNumberRooms())
                 .numberStars(hotelDTO.getNumberStars())
