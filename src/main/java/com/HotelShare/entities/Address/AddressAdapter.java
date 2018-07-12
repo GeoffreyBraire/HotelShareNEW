@@ -7,6 +7,7 @@ public class AddressAdapter {
     public static AddressDTO toAddressDTO(Address address) {
         return address != null ? AddressDTO.builder()
             .id(address.getId())
+            .idHotel(address.getIdHotel())
             .postalCode(address.getPostalCode())
             .city(address.getCity())
             .streetName(address.getStreetName())
@@ -20,6 +21,7 @@ public class AddressAdapter {
     public static Address toAddress(AddressDTO addressDTO) {
         return addressDTO != null ? Address.builder()
             .id(addressDTO.getId())
+            .idHotel(addressDTO.getIdHotel())
             .city(addressDTO.getCity())
             .postalCode(addressDTO.getPostalCode())
             .streetName(addressDTO.getStreetName())
