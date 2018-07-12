@@ -1,6 +1,7 @@
 package com.HotelShare.entities.Address;
 
 import com.HotelShare.entities.Country.Country;
+import com.HotelShare.entities.Hotel.Hotel;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -22,19 +23,19 @@ import java.util.Date;
 @AllArgsConstructor
 public class Address implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID_ADDRESS")
     private long id;
 
     /*@OneToOne()
     @JoinColumn(name = "ID_PROFILE", nullable = false)
-    private UserProfile userProfile;
+    private UserProfile userProfile;*/
 
     @OneToOne()
     @JoinColumn(name = "ID_HOTEL", nullable = false)
-    private Hotel hotel;*/
+    private Hotel hotel;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "ID_COUNTRY", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Country country;

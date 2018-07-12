@@ -5,6 +5,7 @@ import com.HotelShare.entities.Address.AddressAdapter;
 import com.HotelShare.entities.Address.AddressDTO;
 import com.HotelShare.entities.Country.CountryAdapter;
 import com.HotelShare.entities.Country.CountryDTO;
+import com.HotelShare.entities.Hotel.HotelAdapter;
 import com.HotelShare.exceptions.NotFoundException;
 import com.HotelShare.repositories.Address.AddressRepository;
 import com.HotelShare.repositories.Country.CountryRepository;
@@ -49,12 +50,13 @@ public class AddressController {
 
     @Transactional
     @PutMapping("/addresses/{addressId}")
-    public AddressDTO updateAddress(@PathVariable (value = "addressId") Long addressId, @Valid @RequestBody Address addressRequest) {
+    public AddressDTO updateAddress(@PathVariable (value = "addressId") Long addressId, @Valid @RequestBody AddressDTO addressDTORequest) {
         return addressRepository.findById(addressId).map(address -> {
-            address.setCountry(addressRequest.getCountry());
-            address.setCity(addressRequest.getCity());
-            address.setPostalCode(addressRequest.getPostalCode());
-            address.setStreetName(addressRequest.getStreetName());
+            address.setHotel(HotelAdapter.toHotel(addressDTORequest.getHotelDTO()));
+            address.setCountry(CountryAdapter.toCountry(addressDTORequest.getCountryDTO()));
+            address.setCity(addressDTORequest.getCity());
+            address.setPostalCode(addressDTORequest.getPostalCode());
+            address.setStreetName(addressDTORequest.getStreetName());
             address.setStreetNumber(address.getStreetNumber());
             return AddressAdapter.toAddressDTO(addressRepository.save(address));
         }).orElseThrow(() -> new NotFoundException("AddressId " + addressId + "not found"));
