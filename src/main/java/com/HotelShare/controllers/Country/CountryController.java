@@ -38,9 +38,8 @@ public class CountryController {
     }
     @Transactional
     @PostMapping("/countries")
-    public CountryDTO createCountry(@Valid @RequestBody Country country) {
-        country.getAddresses().forEach(address -> address.setCountry(country));
-        return CountryAdapter.toCountryDTO(countryRepository.save(country));
+    public CountryDTO createCountry(@Valid @RequestBody CountryDTO countryDTO) {
+        return CountryAdapter.toCountryDTO(countryRepository.save(CountryAdapter.toCountry(countryDTO)));
     }
 
     @Transactional

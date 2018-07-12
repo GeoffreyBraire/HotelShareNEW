@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AddressRepository extends JpaRepository<Address, Long> {
-    Page<Address> findByCountryId(Long postId, Pageable pageable);
+    Page<Address> findByCountryId(Long addressId, Pageable pageable);
 }
