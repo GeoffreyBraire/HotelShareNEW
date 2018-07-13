@@ -1,6 +1,7 @@
 package com.HotelShare.entities.Hotel;
 
 import com.HotelShare.entities.Address.Address;
+import com.HotelShare.entities.Equipment.Equipment;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -36,6 +37,12 @@ public class Hotel implements Serializable {
             cascade =  CascadeType.ALL)
     private Address address;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "HOTEL_EQUIPMENT",
+            joinColumns = { @JoinColumn(name = "ID_HOTEL") },
+            inverseJoinColumns = { @JoinColumn(name = "ID_EQUIPMENT") })
+    private Set<Equipment> equipments;
+
     /*@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -52,12 +59,6 @@ public class Hotel implements Serializable {
             joinColumns = { @JoinColumn(name = "ID_HOTEL") },
             inverseJoinColumns = { @JoinColumn(name = "ID_CREDITCARD") })
     private Set<CreditCard> creditCards;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "HOTEL_EQUIPMENT",
-            joinColumns = { @JoinColumn(name = "ID_HOTEL") },
-            inverseJoinColumns = { @JoinColumn(name = "ID_EQUIPMENT") })
-    private Set<Equipment> equipments;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "hotels")
     private Set<Review> reviews;*/

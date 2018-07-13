@@ -21,7 +21,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/addresses")
 public class AddressController {
 
     @Autowired
@@ -31,25 +31,25 @@ public class AddressController {
     private CountryRepository countryRepository;
 
     @Transactional
-    @GetMapping("/addresses")
+    @GetMapping()
     public Page<AddressDTO> getAllAddressess(Pageable pageable) {
         return addressRepository.findAll(pageable).map(AddressAdapter::toAddressDTO);
     }
 
     @Transactional
-    @GetMapping("/addresses/{addressId}")
+    @GetMapping("/{addressId}")
     public AddressDTO getAddressById(@PathVariable Long addressId) {
         return AddressAdapter.toAddressDTO(addressRepository.getOne(addressId));
     }
 
     @Transactional
-    @PostMapping("/addresses")
+    @PostMapping()
     public AddressDTO createAddress(@Valid @RequestBody AddressDTO addressDTO) {
         return AddressAdapter.toAddressDTO(addressRepository.save(AddressAdapter.toAddress(addressDTO)));
     }
 
     @Transactional
-    @PutMapping("/addresses/{addressId}")
+    @PutMapping("/{addressId}")
     public AddressDTO updateAddress(@PathVariable (value = "addressId") Long addressId, @Valid @RequestBody AddressDTO addressDTORequest) {
         return addressRepository.findById(addressId).map(address -> {
             address.setCountry(CountryAdapter.toCountry(addressDTORequest.getCountryDTO()));
@@ -57,12 +57,13 @@ public class AddressController {
             address.setPostalCode(addressDTORequest.getPostalCode());
             address.setStreetName(addressDTORequest.getStreetName());
             address.setStreetNumber(address.getStreetNumber());
+            address.setUpdatedDate(address.getUpdatedDate());
             return AddressAdapter.toAddressDTO(addressRepository.save(address));
         }).orElseThrow(() -> new NotFoundException("AddressId " + addressId + "not found"));
     }
 
     @Transactional
-    @DeleteMapping("/addresses/{addressId}")
+    @DeleteMapping("/{addressId}")
     public ResponseEntity<?> deleteAddress(@PathVariable (value = "addressId") Long addressId) {
         return addressRepository.findById(addressId).map(address -> {
             addressRepository.delete(address);

@@ -38,5 +38,4 @@ public class HotelDTO {
     private Boolean animalAllowed;
     private Date createdDate;
     private Date updatedDate;
-
 }

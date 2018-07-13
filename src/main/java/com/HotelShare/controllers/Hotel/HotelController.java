@@ -1,6 +1,8 @@
 package com.HotelShare.controllers.Hotel;
 
 import com.HotelShare.entities.Address.AddressAdapter;
+import com.HotelShare.entities.Equipment.EquipmentAdapter;
+import com.HotelShare.entities.Equipment.EquipmentDTO;
 import com.HotelShare.entities.Hotel.HotelAdapter;
 import com.HotelShare.entities.Hotel.HotelDTO;
 import com.HotelShare.exceptions.NotFoundException;
@@ -13,46 +15,47 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Set;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/hotels")
 public class HotelController {
 
     @Autowired
     private HotelRepository hotelRepository;
 
     @Transactional
-    @GetMapping("/hotels")
+    @GetMapping()
     public Page<HotelDTO> getAllHotels(Pageable pageable) {
         return hotelRepository.findAll(pageable).map(HotelAdapter::toHotelDTO);
     }
 
     @Transactional
-    @GetMapping("/hotels/{hotelId}")
+    @GetMapping("/{hotelId}")
     public HotelDTO getHotelById(@PathVariable Long hotelId) {
         return HotelAdapter.toHotelDTO(hotelRepository.getOne(hotelId));
     }
 
     @Transactional
-    @GetMapping("/hotels/city/{city}")
+    @GetMapping("/city/{city}")
     public Page<HotelDTO> getHotelsByCity(@PathVariable String city, Pageable pageable) {
         return hotelRepository.findByCity(city,pageable).map(HotelAdapter::toHotelDTO);
     }
 
     @Transactional
-    @GetMapping("/hotels/postalCode/{postalCode}")
+    @GetMapping("/postalCode/{postalCode}")
     public Page<HotelDTO> getHotelsByPostalCode(@PathVariable String postalCode, Pageable pageable) {
         return hotelRepository.findByPostalCode(postalCode,pageable).map(HotelAdapter::toHotelDTO);
     }
 
     @Transactional
-    @PostMapping("/hotels")
+    @PostMapping()
     public HotelDTO createHotel(@Valid @RequestBody HotelDTO hotelDTO) {
         return HotelAdapter.toHotelDTO(hotelRepository.save(HotelAdapter.toHotel(hotelDTO)));
     }
 
     @Transactional
-    @PutMapping("/hotels/{hotelId}")
+    @PutMapping("/{hotelId}")
     public HotelDTO updateHotel(@PathVariable (value = "hotelId") Long hotelId, @Valid @RequestBody HotelDTO hotelDTORequest) {
         return hotelRepository.findById(hotelId).map(hotel -> {
             hotel.setId(hotelDTORequest.getId());
@@ -73,15 +76,24 @@ public class HotelController {
             hotel.setBreakfastCost(hotelDTORequest.getBreakfastCost());
             hotel.setChildrenAllowed(hotelDTORequest.getChildrenAllowed());
             hotel.setAnimalAllowed(hotelDTORequest.getAnimalAllowed());
-            hotel.setCreatedDate(hotelDTORequest.getCreatedDate());
             hotel.setUpdatedDate(hotelDTORequest.getUpdatedDate());
 
             return HotelAdapter.toHotelDTO(hotelRepository.save(hotel));
         }).orElseThrow(() -> new NotFoundException("HotelId " + hotelId + "not found"));
     }
 
+    /*@Transactional
+    @PutMapping("/{hotelId}")
+    public HotelDTO updateHotelWithEquipments(@PathVariable (value = "hotelId") Long hotelId, @Valid @RequestBody Set<EquipmentDTO> equipmentDTOSet) {
+        return hotelRepository.findById(hotelId).map(hotel -> {
+            hotel.setEquipments(EquipmentAdapter.toEquipment(equipmentDTOSet));
+
+            return HotelAdapter.toHotelDTO(hotelRepository.save(hotel));
+        }).orElseThrow(() -> new NotFoundException("HotelId " + hotelId + "not found"));
+    }*/
+
     @Transactional
-    @DeleteMapping("/hotels/{hotelId}")
+    @DeleteMapping("/{hotelId}")
     public ResponseEntity<?> deleteHotel(@PathVariable (value = "hotelId") Long hotelId) {
         return hotelRepository.findById(hotelId).map(hotel -> {
             hotelRepository.delete(hotel);
