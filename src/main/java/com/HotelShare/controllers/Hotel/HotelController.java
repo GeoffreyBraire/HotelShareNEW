@@ -34,6 +34,18 @@ public class HotelController {
     }
 
     @Transactional
+    @GetMapping("/hotels/city/{city}")
+    public Page<HotelDTO> getHotelsByCity(@PathVariable String city, Pageable pageable) {
+        return hotelRepository.findByCity(city,pageable).map(HotelAdapter::toHotelDTO);
+    }
+
+    @Transactional
+    @GetMapping("/hotels/postalCode/{postalCode}")
+    public Page<HotelDTO> getHotelsByPostalCode(@PathVariable String postalCode, Pageable pageable) {
+        return hotelRepository.findByPostalCode(postalCode,pageable).map(HotelAdapter::toHotelDTO);
+    }
+
+    @Transactional
     @PostMapping("/hotels")
     public HotelDTO createHotel(@Valid @RequestBody HotelDTO hotelDTO) {
         return HotelAdapter.toHotelDTO(hotelRepository.save(HotelAdapter.toHotel(hotelDTO)));

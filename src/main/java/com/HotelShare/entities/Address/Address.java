@@ -1,7 +1,6 @@
 package com.HotelShare.entities.Address;
 
 import com.HotelShare.entities.Country.Country;
-import com.HotelShare.entities.Hotel.Hotel;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -30,10 +29,6 @@ public class Address implements Serializable {
     /*@OneToOne()
     @JoinColumn(name = "ID_PROFILE", nullable = false)
     private UserProfile userProfile;*/
-
-    @OneToOne()
-    @JoinColumn(name = "ID_HOTEL", nullable = false)
-    private Long idHotel;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "ID_COUNTRY", nullable = false)

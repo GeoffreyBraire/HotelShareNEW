@@ -52,7 +52,6 @@ public class AddressController {
     @PutMapping("/addresses/{addressId}")
     public AddressDTO updateAddress(@PathVariable (value = "addressId") Long addressId, @Valid @RequestBody AddressDTO addressDTORequest) {
         return addressRepository.findById(addressId).map(address -> {
-            address.setIdHotel(addressDTORequest.getIdHotel());
             address.setCountry(CountryAdapter.toCountry(addressDTORequest.getCountryDTO()));
             address.setCity(addressDTORequest.getCity());
             address.setPostalCode(addressDTORequest.getPostalCode());

@@ -33,8 +33,7 @@ public class Hotel implements Serializable {
     private HotelType hotelType;*/
 
     @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "idHotel")
+            cascade =  CascadeType.ALL)
     private Address address;
 
     /*@ManyToOne(fetch = FetchType.LAZY)
