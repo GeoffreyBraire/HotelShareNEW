@@ -2,6 +2,7 @@ package com.HotelShare.controllers.User;
 
 import com.HotelShare.entities.User.UserAdapter;
 import com.HotelShare.entities.User.UserDTO;
+import com.HotelShare.entities.UserProfile.UserProfile;
 import com.HotelShare.exceptions.NotFoundException;
 import com.HotelShare.repositories.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class UserController {
     }
 
     @Transactional
-    @PutMapping("/{hotelId}")
+    @PutMapping("/{userId}")
     public UserDTO updateUser(@PathVariable (value = "userId") Long userId, @Valid @RequestBody UserDTO userDTORequest) {
         return userRepository.findById(userId).map(user -> {
             user.setId(userDTORequest.getId());
