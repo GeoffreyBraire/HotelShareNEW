@@ -24,7 +24,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class Hotel implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID_HOTEL")
     private Long id;
 

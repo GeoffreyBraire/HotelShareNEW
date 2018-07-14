@@ -1,11 +1,14 @@
 package com.HotelShare.controllers.Hotel;
 
 import com.HotelShare.entities.Address.AddressAdapter;
+import com.HotelShare.entities.Equipment.Equipment;
 import com.HotelShare.entities.Equipment.EquipmentAdapter;
 import com.HotelShare.entities.Equipment.EquipmentDTO;
+import com.HotelShare.entities.Hotel.Hotel;
 import com.HotelShare.entities.Hotel.HotelAdapter;
 import com.HotelShare.entities.Hotel.HotelDTO;
 import com.HotelShare.exceptions.NotFoundException;
+import com.HotelShare.repositories.Equipment.EquimentRepository;
 import com.HotelShare.repositories.Hotel.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/api/hotels")
@@ -23,6 +30,9 @@ public class HotelController {
 
     @Autowired
     private HotelRepository hotelRepository;
+
+    @Autowired
+    private EquimentRepository equimentRepository;
 
     @Transactional
     @GetMapping()
@@ -34,6 +44,14 @@ public class HotelController {
     @GetMapping("/{hotelId}")
     public HotelDTO getHotelById(@PathVariable Long hotelId) {
         return HotelAdapter.toHotelDTO(hotelRepository.getOne(hotelId));
+    }
+
+    @Transactional
+    @GetMapping("/{hotelId}/equipments")
+    public List<EquipmentDTO> getAllEquipmentsByIdHotel(@PathVariable Long hotelId) {
+        return hotelRepository.findById(hotelId).map(hotel ->
+                hotel.getEquipments().stream().map(EquipmentAdapter::toEquipmentDTO).collect(toList()))
+        .orElseThrow(() -> new NotFoundException("HotelId " + hotelId + "not found"));
     }
 
     @Transactional
@@ -82,15 +100,18 @@ public class HotelController {
         }).orElseThrow(() -> new NotFoundException("HotelId " + hotelId + "not found"));
     }
 
-    /*@Transactional
-    @PutMapping("/{hotelId}")
-    public HotelDTO updateHotelWithEquipments(@PathVariable (value = "hotelId") Long hotelId, @Valid @RequestBody Set<EquipmentDTO> equipmentDTOSet) {
+    @Transactional
+    @PutMapping("/{hotelId}/equipments")
+    public ResponseEntity<?> updateHotelWithEquipments(@PathVariable (value = "hotelId") Long hotelId, @Valid @RequestBody Set<Long> equipmentIdSet) {
         return hotelRepository.findById(hotelId).map(hotel -> {
-            hotel.setEquipments(EquipmentAdapter.toEquipment(equipmentDTOSet));
-
-            return HotelAdapter.toHotelDTO(hotelRepository.save(hotel));
-        }).orElseThrow(() -> new NotFoundException("HotelId " + hotelId + "not found"));
-    }*/
+            for(Long id : equipmentIdSet) {
+                Equipment equipment = equimentRepository.getOne(id);
+                hotel.getEquipments().add(equipment);
+            }
+            hotelRepository.save(hotel);
+            return ResponseEntity.ok().build();
+        }).orElseThrow(() -> new NotFoundException("HotelId " + hotelId + " not found"));
+    }
 
     @Transactional
     @DeleteMapping("/{hotelId}")
