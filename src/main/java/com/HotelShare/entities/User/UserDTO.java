@@ -22,7 +22,9 @@ public class UserDTO {
 
     public UserDTO() {}
 
-    public UserDTO(String login, String emailAddress, String password, Date createdDate, Date updatedDate) {
+    public UserDTO(long id, UserProfile userProfile, String login, String emailAddress, String password, Date createdDate, Date updatedDate) {
+        this.id = id;
+        this.userProfile = userProfile;
         this.login = login;
         this.emailAddress = emailAddress;
         this.password = PasswordHash.getSHA256Hash(password);

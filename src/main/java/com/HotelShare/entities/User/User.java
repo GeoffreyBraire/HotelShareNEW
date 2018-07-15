@@ -19,7 +19,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "USER")
+@Table(name = "USERS")
 @Builder
 @Getter
 @Setter
@@ -73,11 +73,14 @@ public class User implements Serializable {
 
     public User() {}
 
-    public User(UserProfile userProfile, @NotNull String login, @NotNull @Email String emailAddress, @NotNull String password) {
+    public User(long id, UserProfile userProfile, @NotNull String login, @NotNull @Email String emailAddress, @NotNull String password, Date createdDate, Date updatedDate) {
+        this.id = id;
         this.userProfile = userProfile;
         this.login = login;
         this.emailAddress = emailAddress;
         this.password = PasswordHash.getSHA256Hash(password);
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
     }
 
     public void setPassword(String password) {

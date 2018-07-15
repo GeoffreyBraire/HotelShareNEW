@@ -9,6 +9,8 @@ import com.HotelShare.exceptions.NotFoundException;
 import com.HotelShare.repositories.User.UserRepository;
 import com.HotelShare.repositories.UserProfile.UserProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,12 @@ public class UserProfileController {
 
     @Autowired
     private UserProfileRepository userProfileRepository;
+
+    @Transactional
+    @GetMapping()
+    public Page<UserProfileDTO> getAllUserProfiles(Pageable pageable) {
+        return userProfileRepository.findAll(pageable).map(UserProfileAdapter::toUserProfileDTO);
+    }
 
     @Transactional
     @GetMapping("/{userProfileId}")

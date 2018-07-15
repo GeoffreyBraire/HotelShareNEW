@@ -1,6 +1,5 @@
 package com.HotelShare.entities.UserProfile;
 
-import com.HotelShare.enumerations.Gender;
 import lombok.*;
 
 import java.util.Date;
@@ -17,7 +16,7 @@ public class UserProfileDTO {
     private boolean isAdmin;
     private String fisrtname;
     private String lastname;
-    private Gender gender;
+    private String gender;
     private Date birthDate;
     private String description;
     private String phoneNumber;

@@ -1,17 +1,12 @@
 package com.HotelShare.entities.UserProfile;
 
-import com.HotelShare.enumerations.Gender;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "USER_PROFILE")
@@ -79,7 +74,7 @@ public class UserProfile implements Serializable {
     private String lastname;
 
     @Column(name = "GENDER")
-    private Gender gender;
+    private String gender;
 
     @Column(name = "BIRTHDATE")
     private Date birthDate;
