@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {
-    Page<UserProfile> findByCurrencyId(Long userProfileId, Pageable pageable);
+    /*Page<UserProfile> findByCurrencyId(Long userProfileId, Pageable pageable);*/
 }

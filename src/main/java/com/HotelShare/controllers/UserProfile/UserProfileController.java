@@ -1,9 +1,5 @@
 package com.HotelShare.controllers.UserProfile;
 
-import com.HotelShare.entities.Currency.CurrencyAdapter;
-import com.HotelShare.entities.User.UserAdapter;
-import com.HotelShare.entities.User.UserDTO;
-import com.HotelShare.entities.UserProfile.UserProfile;
 import com.HotelShare.entities.UserProfile.UserProfileAdapter;
 import com.HotelShare.entities.UserProfile.UserProfileDTO;
 import com.HotelShare.exceptions.NotFoundException;
@@ -50,7 +46,7 @@ public class UserProfileController {
     @PutMapping("/{userProfileId}")
     public UserProfileDTO updateUserProfile(@PathVariable (value = "userProfileId") Long userProfileId, @Valid @RequestBody UserProfileDTO userProfileDTORequest) {
         return userProfileRepository.findById(userProfileId).map(userProfile -> {
-            userProfile.setCurrency(CurrencyAdapter.toCurrency(userProfileDTORequest.getCurrencyDTO()));
+            /*userProfile.setCurrency(CurrencyAdapter.toCurrency(userProfileDTORequest.getCurrencyDTO()));*/
             userProfile.setAdmin(false);
             userProfile.setFisrtname(userProfileDTORequest.getFisrtname());
             userProfile.setLastname(userProfileDTORequest.getLastname());

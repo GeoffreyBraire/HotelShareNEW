@@ -1,3 +1,4 @@
+/*
 package com.HotelShare.entities.Currency;
 
 import lombok.*;
@@ -17,3 +18,4 @@ public class CurrencyDTO {
     private Date createdDate;
     private Date updatedDate;
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.HotelShare.entities.Currency;
 
 public class CurrencyAdapter {
@@ -19,3 +20,4 @@ public class CurrencyAdapter {
         .build() : null;
     }
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.HotelShare.entities.Currency;
 
 import com.HotelShare.entities.UserProfile.UserProfile;
@@ -41,3 +42,4 @@ public class Currency implements Serializable {
     @LastModifiedDate
     private Date updatedDate;
 }
+*/

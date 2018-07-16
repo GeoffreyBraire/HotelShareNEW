@@ -1,6 +1,5 @@
 package com.HotelShare.entities.UserProfile;
 
-import com.HotelShare.entities.Currency.Currency;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -26,10 +25,10 @@ public class UserProfile implements Serializable {
     @Column(name = "ID_PROFILE")
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    /*@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "ID_CURRENCY", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Currency currency;
+    private Currency currency;*/
 
     /*@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER", nullable = false)

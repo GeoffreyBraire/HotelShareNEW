@@ -1,3 +1,4 @@
+/*
 package com.HotelShare.controllers.Currency;
 
 import com.HotelShare.entities.Address.AddressAdapter;
@@ -81,3 +82,4 @@ public class CurrencyController {
 
 }
 
+*/
