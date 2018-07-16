@@ -7,9 +7,11 @@ import com.HotelShare.entities.Equipment.EquipmentDTO;
 import com.HotelShare.entities.Hotel.Hotel;
 import com.HotelShare.entities.Hotel.HotelAdapter;
 import com.HotelShare.entities.Hotel.HotelDTO;
+import com.HotelShare.entities.User.UserAdapter;
 import com.HotelShare.exceptions.NotFoundException;
 import com.HotelShare.repositories.Equipment.EquimentRepository;
 import com.HotelShare.repositories.Hotel.HotelRepository;
+import com.HotelShare.repositories.User.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -77,6 +79,7 @@ public class HotelController {
     public HotelDTO updateHotel(@PathVariable (value = "hotelId") Long hotelId, @Valid @RequestBody HotelDTO hotelDTORequest) {
         return hotelRepository.findById(hotelId).map(hotel -> {
             hotel.setId(hotelDTORequest.getId());
+            hotel.setUser(UserAdapter.toUser(hotelDTORequest.getUserDTO()));
             hotel.setAddress(AddressAdapter.toAddress(hotelDTORequest.getAddressDTO()));
             hotel.setNameHotel(hotelDTORequest.getNameHotel());
             hotel.setNumberRooms(hotelDTORequest.getNumberRooms());

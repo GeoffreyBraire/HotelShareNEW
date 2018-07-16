@@ -35,16 +35,16 @@ public class User implements Serializable {
             cascade =  CascadeType.ALL)
     private UserProfile userProfile;
 
-    /*@OneToMany(mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.PERSIST)
     private Set<Hotel> hotels;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Room> rooms;
+    /*@OneToMany(mappedBy = "user")
+    private Set<Room> rooms;*/
 
-    @OneToMany(mappedBy = "user")
-    private Set<Reservation> reservations;
+    /*@OneToMany(mappedBy = "user")
+    private Set<Reservation> reservations;*/
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "users")
+    /*@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "users")
     private Set<Review> reviews;*/
 
     @NotNull
@@ -73,9 +73,10 @@ public class User implements Serializable {
 
     public User() {}
 
-    public User(long id, UserProfile userProfile, @NotNull String login, @NotNull @Email String emailAddress, @NotNull String password, Date createdDate, Date updatedDate) {
+    public User(long id, UserProfile userProfile, Set<Hotel> hotels, @NotNull String login, @NotNull @Email String emailAddress, @NotNull String password, Date createdDate, Date updatedDate) {
         this.id = id;
         this.userProfile = userProfile;
+        this.hotels = hotels;
         this.login = login;
         this.emailAddress = emailAddress;
         this.password = PasswordHash.getSHA256Hash(password);

@@ -2,6 +2,7 @@ package com.HotelShare.entities.Hotel;
 
 import com.HotelShare.entities.Address.Address;
 import com.HotelShare.entities.Equipment.Equipment;
+import com.HotelShare.entities.User.User;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -43,24 +44,24 @@ public class Hotel implements Serializable {
             inverseJoinColumns = { @JoinColumn(name = "ID_EQUIPMENT") })
     private Set<Equipment> equipments;
 
-    /*@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "ID_USER", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /*@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "HOTEL_LANGUAGE",
             joinColumns = { @JoinColumn(name = "ID_HOTEL") },
             inverseJoinColumns = { @JoinColumn(name = "ID_LANGUAGE") })
-    private Set<Language> languages;
+    private Set<Language> languages;*/
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    /*@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "HOTEL_CREDITCARD",
             joinColumns = { @JoinColumn(name = "ID_HOTEL") },
             inverseJoinColumns = { @JoinColumn(name = "ID_CREDITCARD") })
-    private Set<CreditCard> creditCards;
+    private Set<CreditCard> creditCards;*/
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "hotels")
+    /*@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "hotels")
     private Set<Review> reviews;*/
 
     @Column(name = "NAME_HOTEL")

@@ -1,11 +1,13 @@
 package com.HotelShare.entities.Hotel;
 
 import com.HotelShare.entities.Address.AddressAdapter;
+import com.HotelShare.entities.User.UserAdapter;
 
 public class HotelAdapter {
     public static HotelDTO toHotelDTO(Hotel hotel) {
         return hotel != null ? HotelDTO.builder()
                 .id(hotel.getId())
+                .userDTO(UserAdapter.toUserDTO(hotel.getUser()))
                 .addressDTO(AddressAdapter.toAddressDTO(hotel.getAddress()))
                 .nameHotel(hotel.getNameHotel())
                 .numberRooms(hotel.getNumberRooms())
@@ -31,6 +33,7 @@ public class HotelAdapter {
     public static Hotel toHotel(HotelDTO hotelDTO) {
         return hotelDTO != null ? Hotel.builder()
                 .id(hotelDTO.getId())
+                .user(UserAdapter.toUser(hotelDTO.getUserDTO()))
                 .address(AddressAdapter.toAddress(hotelDTO.getAddressDTO()))
                 .nameHotel(hotelDTO.getNameHotel())
                 .numberRooms(hotelDTO.getNumberRooms())

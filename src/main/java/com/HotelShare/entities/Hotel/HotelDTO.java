@@ -1,6 +1,7 @@
 package com.HotelShare.entities.Hotel;
 
 import com.HotelShare.entities.Address.AddressDTO;
+import com.HotelShare.entities.User.UserDTO;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -19,6 +20,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class HotelDTO {
     private Long id;
+    private UserDTO userDTO;
     private AddressDTO addressDTO;
     private String nameHotel;
     private Integer numberRooms;

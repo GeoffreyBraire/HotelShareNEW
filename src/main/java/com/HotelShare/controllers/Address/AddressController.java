@@ -27,9 +27,6 @@ public class AddressController {
     @Autowired
     private AddressRepository addressRepository;
 
-    @Autowired
-    private CountryRepository countryRepository;
-
     @Transactional
     @GetMapping()
     public Page<AddressDTO> getAllAddressess(Pageable pageable) {
