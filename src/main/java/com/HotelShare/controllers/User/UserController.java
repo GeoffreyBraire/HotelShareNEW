@@ -55,7 +55,6 @@ public class UserController {
     @PutMapping("/{userId}")
     public UserDTO updateUser(@PathVariable (value = "userId") Long userId, @Valid @RequestBody User userRequest) {
         return userRepository.findById(userId).map(user -> {
-            user.setId(userRequest.getId());
             user.setHotels(userRequest.getHotels());
             user.setUserProfile(userRequest.getUserProfile());
             user.setLogin(userRequest.getLogin());

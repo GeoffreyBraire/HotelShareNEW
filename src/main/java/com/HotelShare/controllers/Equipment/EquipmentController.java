@@ -46,7 +46,6 @@ public class EquipmentController {
     @PutMapping("/{equipmentId}")
     public EquipmentDTO updateEquipment(@PathVariable (value = "equipmentId") Long equipmentId, @Valid @RequestBody EquipmentDTO equipmentDTORequest) {
         return equimentRepository.findById(equipmentId).map(equipment -> {
-            equipment.setId(equipmentDTORequest.getId());
             equipment.setNameEquipment(equipmentDTORequest.getNameEquipment());
             equipment.setUpdatedDate(equipmentDTORequest.getUpdatedDate());
 

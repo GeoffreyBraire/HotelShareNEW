@@ -1,5 +1,7 @@
 package com.HotelShare.entities.UserProfile;
 
+import com.HotelShare.entities.Currency.Currency;
+import com.HotelShare.entities.Currency.CurrencyDTO;
 import lombok.*;
 
 import java.util.Date;
@@ -13,6 +15,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class UserProfileDTO {
     private long id;
+    private CurrencyDTO currencyDTO;
     private boolean isAdmin;
     private String fisrtname;
     private String lastname;

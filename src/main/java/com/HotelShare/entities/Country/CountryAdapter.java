@@ -11,7 +11,7 @@ public class CountryAdapter {
                 .nameCountry(country.getNameCountry())
                 .createdDate(country.getCreatedDate())
                 .updatedDate(country.getUpdatedDate())
-                .build() : null;
+        .build() : null;
 
     }
 
@@ -21,6 +21,6 @@ public class CountryAdapter {
                 .nameCountry(countryDTO.getNameCountry())
                 .createdDate(countryDTO.getCreatedDate())
                 .updatedDate(countryDTO.getUpdatedDate())
-                .build() : null;
+        .build() : null;
     }
 }

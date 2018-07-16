@@ -1,6 +1,9 @@
 package com.HotelShare.entities.UserProfile;
 
+import com.HotelShare.entities.Currency.Currency;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -23,6 +26,11 @@ public class UserProfile implements Serializable {
     @Column(name = "ID_PROFILE")
     private long id;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "ID_CURRENCY", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Currency currency;
+
     /*@OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER", nullable = false)
     private User user;
@@ -31,29 +39,6 @@ public class UserProfile implements Serializable {
             cascade =  CascadeType.ALL,
             mappedBy = "userProfile")
     private Address address;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_CURRENCY", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Currency currency;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_TIMEZONE", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private TimeZone timeZone;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_STATUS", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private FamilyStatus familyStatus;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_LANGUAGE", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private Language favoriteLanguage;
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {

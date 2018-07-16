@@ -78,7 +78,6 @@ public class HotelController {
     @PutMapping("/{hotelId}")
     public HotelDTO updateHotel(@PathVariable (value = "hotelId") Long hotelId, @Valid @RequestBody HotelDTO hotelDTORequest) {
         return hotelRepository.findById(hotelId).map(hotel -> {
-            hotel.setId(hotelDTORequest.getId());
             hotel.setUser(UserAdapter.toUser(hotelDTORequest.getUserDTO()));
             hotel.setAddress(AddressAdapter.toAddress(hotelDTORequest.getAddressDTO()));
             hotel.setNameHotel(hotelDTORequest.getNameHotel());
